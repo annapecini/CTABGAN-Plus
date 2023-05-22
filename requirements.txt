@@ -1,0 +1,8 @@
+numpy==1.21.0
+torch==1.9.1
+pandas==1.2.4
+scikit-learn==1.0.2
+scipy==1.7.2
+dython==0.6.4.post1
+optuna==2.10.1
+sdv==0.17.1
