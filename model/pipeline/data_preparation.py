@@ -122,7 +122,8 @@ class DataPrep(object):
         if self.integer_columns:
             for column in self.integer_columns:
                 df_sample[column]= (np.round(df_sample[column].values))
-                df_sample[column] = df_sample[column].astype(int)
+                # df_sample[column] = pd.to_numeric(df_sample[column], errors='coerce')
+                df_sample[column] = df_sample[column].astype(int, errors='ignore')
 
         df_sample.replace(-9999999, np.nan,inplace=True)
         df_sample.replace('empty', np.nan,inplace=True)

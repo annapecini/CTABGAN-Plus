@@ -60,7 +60,7 @@ def get_utility_metrics(real_path,fake_paths,scaler="MinMax",classifiers=["lr","
         scaler_real = MinMaxScaler()
     else:
         scaler_real = StandardScaler()
-        
+    print(data_real_X)        
     scaler_real.fit(data_real_X)
     X_train_real_scaled = scaler_real.transform(X_train_real)
     X_test_real_scaled = scaler_real.transform(X_test_real)

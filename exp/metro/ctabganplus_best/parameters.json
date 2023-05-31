@@ -1,0 +1,9 @@
+{
+    "nr_layers": 3,
+    "dims": 256,
+    "random_dim": 100,
+    "num_channels": 16,
+    "l2scale": 4e-05,
+    "batch_size": 500,
+    "epochs": 10
+}

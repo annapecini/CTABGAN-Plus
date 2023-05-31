@@ -1,0 +1,9 @@
+{
+    "num_channels": 0.53125,
+    "dims": 0.46875,
+    "random_dim": 0.0,
+    "nr_layers": 0.0,
+    "l2scale": 0.0,
+    "epochs": 0.0,
+    "batch_size": 0.0
+}

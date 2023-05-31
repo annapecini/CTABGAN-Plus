@@ -556,8 +556,9 @@ class CTABGANSynthesizer:
         steps = n // self.batch_size + 1
         
         data = []
+        print(self.device)
         
-        for i in range(steps):
+        for i in tqdm(range(steps)):
             noisez = torch.randn(self.batch_size, self.random_dim, device=self.device)
             condvec = self.cond_generator.sample(self.batch_size)
             c = condvec
@@ -573,27 +574,27 @@ class CTABGANSynthesizer:
         data = np.concatenate(data, axis=0)
         result,resample = self.transformer.inverse_transform(data)
         
-        while len(result) < n:
-            data_resample = []    
-            steps_left = resample// self.batch_size + 1
+        # while len(result) < n:
+        #     data_resample = []    
+        #     steps_left = resample// self.batch_size + 1
             
-            for i in range(steps_left):
-                noisez = torch.randn(self.batch_size, self.random_dim, device=self.device)
-                condvec = self.cond_generator.sample(self.batch_size)
-                c = condvec
-                c = torch.from_numpy(c).to(self.device)
-                noisez = torch.cat([noisez, c], dim=1)
-                noisez =  noisez.view(self.batch_size,self.random_dim+self.cond_generator.n_opt,1,1)
-                    
-                fake = self.generator(noisez)
-                faket = self.Gtransformer.inverse_transform(fake)
-                fakeact = apply_activate(faket, output_info)
-                data_resample.append(fakeact.detach().cpu().numpy())
+        #     for i in range(steps_left):
+        #         noisez = torch.randn(self.batch_size, self.random_dim, device=self.device)
+        #         condvec = self.cond_generator.sample(self.batch_size)
+        #         c = condvec
+        #         c = torch.from_numpy(c).to(self.device)
+        #         noisez = torch.cat([noisez, c], dim=1)
+        #         noisez =  noisez.view(self.batch_size,self.random_dim+self.cond_generator.n_opt,1,1)
+        #            
+        #         fake = self.generator(noisez)
+        #         faket = self.Gtransformer.inverse_transform(fake)
+        #         fakeact = apply_activate(faket, output_info)
+        #         data_resample.append(fakeact.detach().cpu().numpy())
 
-            data_resample = np.concatenate(data_resample, axis=0)
+        #     data_resample = np.concatenate(data_resample, axis=0)
 
-            res,resample = self.transformer.inverse_transform(data_resample)
-            result  = np.concatenate([result,res],axis=0)
+        #     res,resample = self.transformer.inverse_transform(data_resample)
+        #     result  = np.concatenate([result,res],axis=0)
         
-        return result[0:n]
+        return result
 
